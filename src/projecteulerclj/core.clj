@@ -2,7 +2,7 @@
   ;(:gen-class)
   (:require [clojure.string :as str]))
 
-(let [solved 2] (apply load
+(let [solved 3] (apply load
                        (map #(str "problem" (inc %)) (range solved))))
 
 (defn get-problem [number]
