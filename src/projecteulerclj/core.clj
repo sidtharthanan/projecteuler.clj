@@ -1,12 +1,10 @@
 (ns projecteulerclj.core
-  ;(:gen-class)
   (:require [clojure.string :as str]))
 
-(let [solved 3] (apply load
-                       (map #(str "problem" (inc %)) (range solved))))
-
 (defn get-problem [number]
-  (ns-resolve 'projecteulerclj.core (symbol (str "problem" number))))
+  (require (symbol (str "projecteulerclj.problem" number)))
+  (ns-resolve (symbol (str "projecteulerclj.problem" number)) (symbol (str "problem" number)))
+  )
 
 (defn -main
   "Projecteuler problem solutions"

@@ -1,4 +1,5 @@
-(in-ns 'projecteulerclj.core)
+(ns projecteulerclj.problem3
+  (:require [projecteulerclj.test-suite :as tests]))
 
 ;(defn prime-candidates
 ;  ([] (cons 2 (cons 3 (prime-candidates 1))))
@@ -30,5 +31,6 @@
   (apply max (factorize number)))
 
 (defn problem3 []
-  (println "13195 -> factos -> primes -> max -> 29 | actual | " (main 13195))
-  (println "600851475143 -> factos -> primes -> max -> 6857 | actual | " (main 600851475143)))
+  (tests/exec "problem3" "INPUT -> factos -> primes -> max ->" main
+              [[13195] 29]
+              [[600851475143] 6857]))

@@ -1,4 +1,5 @@
-(in-ns 'projecteulerclj.core)
+(ns projecteulerclj.problem2
+  (:require [projecteulerclj.test-suite :as tests]))
 
 ;This is to find out the possible position of the given number in the sequence
 ;(defn approx-depth
@@ -19,8 +20,9 @@
        (reduce +')))
 
 (defn problem2 []
-  (println "fibonacci -> even? -> below 100000 -> total " (main 100000))
-  (println "fibonacci -> even? -> below 4000000 -> total " (main 4000000)))
+  (tests/exec "problem2" "fibonacci -> even? -> below INPUT -> sum" main
+              [[100000] 60696]
+              [[4000000] 4613732]))
 
 ;(defn positive-numbers1
 ;  ([] (positive-numbers1 1))

@@ -1,4 +1,5 @@
-(in-ns 'projecteulerclj.core)
+(ns projecteulerclj.problem1
+  (:require [projecteulerclj.test-suite :as tests]))
 
 (def divisible? #(zero? (rem %1 %2)))
 (def div-by-three? #(divisible? % 3))
@@ -9,8 +10,9 @@
   (reduce + (filter (some-fn div-by-five? div-by-three?) (natural upto))))
 
 (defn problem1 []
-  (println (main 10))
-  (println (main 1000)))
+  (tests/exec "problem1" "naturals -> below INPUT -> div-by 5 0r 3 -> sum ->" main
+         [[10] 23]
+         [[1000] 233168]))
 
 ;(def fizzbuzz
 ;  (some-fn #(and (= (mod % 3) 0) (= (mod % 5) 0) "FizzBuzz")
