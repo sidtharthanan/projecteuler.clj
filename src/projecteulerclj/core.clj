@@ -1,10 +1,12 @@
 (ns projecteulerclj.core
   (:require [clojure.string :as str]))
 
+(defn symbolise [& args]
+  (symbol (apply str args)))
+
 (defn get-problem [number]
-  (require (symbol (str "projecteulerclj.problem" number)))
-  (ns-resolve (symbol (str "projecteulerclj.problem" number)) (symbol (str "problem" number)))
-  )
+  (require (symbolise "projecteulerclj.problem" number))
+  (ns-resolve (symbolise "projecteulerclj.problem" number) (symbolise "problem" number)))
 
 (defn -main
   "Projecteuler problem solutions"
