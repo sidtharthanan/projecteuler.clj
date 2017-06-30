@@ -8,7 +8,10 @@
 
 (defn -main
   "Projecteuler problem solutions"
-  [number & args]
-  (if-let [problem-sol (get-problem number)]
-    (problem-sol)
-    (println (format "problem %s not solved." number))))
+  ([number]
+   (if-let [problem (get-problem number)]
+     (problem)
+     (println (format "problem %s not solved." number))))
+  ([start end]
+   (dorun (for [number (range (Integer. start) (Integer. end))]
+            (-main number)))))
