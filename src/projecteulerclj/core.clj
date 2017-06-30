@@ -13,5 +13,5 @@
      (problem)
      (println (format "problem %s not solved." number))))
   ([start end]
-   (dorun (for [number (range (Integer. start) (Integer. end))]
-            (-main number)))))
+   (doseq [number (range (Integer. start) (inc (Integer. end)))]
+     (-main number))))

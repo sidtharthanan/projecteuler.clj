@@ -1,16 +1,19 @@
 (ns projecteulerclj.test-suite)
 
-(defn exec
-  [name desc main & cases]
-  (println (str name "-----------------------------------"))
-  (println desc)
+(defn log [& args] (println (apply str args)))
+
+(defn exec [name desc main & cases]
+  (log "=======================================================")
+  (log "Problem :" name)
+  (log "Desc :" desc)
+  (log "=======================================================")
   (doseq [case cases
           :let [[[& input] expected] case]]
-    (println "================")
-    (println "INPUT :" input)
-    (println "EXPECTED :" expected)
+    (log "INPUT :" input)
+    (log "EXPECTED :" expected)
     (let [actual (apply main input)]
       (if (= expected actual)
-        (println "STATUS : OK")
-        (do (println "STATUS : FAIL********************************")
-            (println "ACTUAL :" actual))))))
+        (log "STATUS : OK")
+        (do (log "STATUS :" "FAIL" "*******************************")
+            (log "ACTUAL :" actual))))
+    (log "________________________________")))
