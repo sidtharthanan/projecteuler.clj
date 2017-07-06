@@ -1,13 +1,14 @@
 (ns projecteulerclj.problem3
   (:require [projecteulerclj.test-suite :as tests]
-            [projecteulerclj.lib :refer [primes prime-factor-limit]]))
+            [projecteulerclj.lib :refer [primes prime-factor-limit lpf]]))
 
 (defn factorize
   ([number] (factorize number (set nil)))
   ([number factors]
-   (if (= number 1) factors (if-let [factor (some #(and (zero? (mod number %)) %) (primes (prime-factor-limit number)))]
-                              (factorize (/ number factor) (conj factors factor))
-                              (conj factors number)))))
+   (if-let [factor (lpf number)]
+     (factorize (/ number factor) (conj factors factor))
+     (conj factors number))))
+
 (defn main [number]
   (apply max (factorize number)))
 

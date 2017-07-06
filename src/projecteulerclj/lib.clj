@@ -8,13 +8,15 @@
 
 (def rem? #(not (zero? (rem %1 %2))))
 
-(defn take-till [max-xcld range]
+(defn take-below [max-xcld range]
   (take-while #(< % max-xcld) range))
 
 (defn gcd [a b]
+  "greatest common divisor"
   (if-not (rem? a b) b (gcd b (rem a b))))
 
 (defn lcm [& args]
+  "least common multiple"
   (reduce #(/ (* %1 %2) (gcd %1 %2)) args))
 
 (defn prime-factor-limit [number]
@@ -26,10 +28,15 @@
              (cons (inc (* 6 n))
                    (lazy-seq (prime-candidates (inc n)))))))
 
-(defn prime? [number]
-  (every?
-    #(rem? number %) (take-till (prime-factor-limit number) (rest (prime-candidates)))))
+(defn lpf [number]
+  "least prime factor"
+  (if (> number 2)
+    (some (fn [factor] (if-not (rem? number factor) factor))
+          (take-below (prime-factor-limit number) (prime-candidates)))))
+
+(defn prime? [number] (not (lpf number)))
 
 (defn primes
   ([] (filter prime? (prime-candidates)))
-  ([max-x] (take-till max-x (primes))))
+  ([max-x] (take-below max-x (primes))))
+

@@ -5,7 +5,7 @@
 (defn big-palindrome [min max]
   (loop [factor1 min factor2 min big-palindrome (* min min)]
     (if (or (> factor1 max) (> factor2 max))
-      (when (palindrome? (str big-palindrome)) big-palindrome)
+      (if (palindrome? (str big-palindrome)) big-palindrome)
       (if (= factor2 max)
         (recur (inc factor1)
                (int (Math/floor (/ big-palindrome factor1)))

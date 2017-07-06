@@ -1,5 +1,6 @@
 (ns projecteulerclj.problem2
-  (:require [projecteulerclj.test-suite :as tests]))
+  (:require [projecteulerclj.test-suite :as tests]
+            [projecteulerclj.lib :refer [take-below]]))
 
 ;This is to find out the possible position of the given number in the sequence
 ;(defn approx-depth
@@ -16,7 +17,7 @@
 (defn main [upto]
   (->> (fibo)
        (filter even?)
-       (take-while #(> upto %))
+       (take-below upto)
        (reduce +')))
 
 (defn problem2 []
