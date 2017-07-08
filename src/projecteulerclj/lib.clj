@@ -40,3 +40,6 @@
   ([] (filter prime? (prime-candidates)))
   ([max-x] (take-below max-x (primes))))
 
+(defn frame [size coll]
+  (if (<= size (count coll))
+    (cons (take size coll) (lazy-seq (frame size (rest coll))))))
