@@ -1,11 +1,11 @@
 (ns projecteulerclj.problem9
-  (:require [projecteulerclj.lib :refer []]
+  (:require [projecteulerclj.lib :refer :all]
             [projecteulerclj.test-suite :refer :all]))
 
 (defn main [sum]
   (first (for [a (range 1 sum) b (range 1 sum)
                :let [c (- sum a b)]
-               :when (and (< a b c) (= (+ (* a a) (* b b)) (* c c)))]
+               :when (pythagorean? a b c)]
            (* a b c))))
 
 (defn problem9 []

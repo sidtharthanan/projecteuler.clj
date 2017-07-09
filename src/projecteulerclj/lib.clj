@@ -43,3 +43,11 @@
 (defn frame [size coll]
   (if (<= size (count coll))
     (cons (take size coll) (lazy-seq (frame size (rest coll))))))
+
+(defn pythagorean? [a b c]
+  (and (< a b c) (= (+ (* a a) (* b b)) (* c c))))
+
+(defn find-by [[first & rest] pred]
+  (if (pred first)
+    first
+    (if rest (recur rest pred))))
