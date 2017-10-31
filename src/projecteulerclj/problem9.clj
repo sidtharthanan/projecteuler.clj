@@ -10,7 +10,7 @@
 
 (defn problem9 []
   (exec-v2 "Pythagorean triplet"
-           "For any {a,b,c}, a<b<c and a^2+b^2=c^2 and a+b+c=INPUT, find a*b*c."
+           "Find a*b*c, Where a<b<c and a^2+b^2=c^2 and a+b+c=INPUT."
            main
            {:scene "Triplet {3,4,5} :in 12, :out 60" :in [12] :out 60}
            {:scene "triplet {200,375,425} :in 1000, :out 31875000" :in [1000] :out 31875000}))
