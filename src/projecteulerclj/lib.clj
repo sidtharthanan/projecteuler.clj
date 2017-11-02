@@ -25,11 +25,19 @@
 (defn prime-factor-limit [number]
   (inc (Math/ceil (Math/sqrt number))))
 
-(defn ^:private prime-candidates
-  ([] (cons 2 (cons 3 (prime-candidates 1))))
+(defn ^:private prime-candidates-x
+  ([] (cons 2 (cons 3 (prime-candidates-x 1))))
   ([n] (cons (dec (* 6 n))
              (cons (inc (* 6 n))
-                   (lazy-seq (prime-candidates (inc n)))))))
+                   (lazy-seq (prime-candidates-x (inc n)))))))
+
+(defn prime-candidates []
+  (lazy-cat [2 3]
+            ((fn seqfn [n]
+               (lazy-cat [(dec (* 6 n)) (inc (* 6 n))]
+                         (seqfn (inc n))))
+              1)))
+
 
 (defn lpf [number]
   "least prime factor"
@@ -43,9 +51,13 @@
   ([] (filter prime? (prime-candidates)))
   ([max-x] (take-below max-x (primes))))
 
-(defn frame [size coll]
+(defn frame-x [size coll]
   (if (<= size (count coll))
-    (cons (take size coll) (lazy-seq (frame size (rest coll))))))
+    (cons (take size coll) (lazy-seq (frame-x size (rest coll))))))
+
+(defn frame-y [size coll]
+  (if (<= size (count coll))
+    (lazy-cat (take size coll) (frame-y size (rest coll)))))
 
 (def frame #(partition %1 1 %2))
 
