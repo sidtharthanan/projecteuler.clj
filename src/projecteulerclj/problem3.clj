@@ -1,23 +1,23 @@
 (ns projecteulerclj.problem3
   (:require [projecteulerclj.test-suite :as tests]
-            [projecteulerclj.lib :refer [primes prime-factor-limit lpf]]))
+            [projecteulerclj.lib :refer [primes prime-factor-limit smallest-divisor]]))
 
 (defn factorize
   ([number] (factorize number (set nil)))
   ([number factors]
-   (if-let [factor (lpf number)]
+   (if-let [factor (smallest-divisor number)]
      (factorize (/ number factor) (conj factors factor))
      (conj factors number))))
 
 (defn factorize-1 [product]
   (loop [dividend product factors []]
-    (if-let [factor (lpf dividend)]
+    (if-let [factor (smallest-divisor dividend)]
       (recur (/ dividend factor) (conj factors factor))
       (conj factors dividend))))
 
 (defn factorize-2 [number]
   (fn [factors]
-    (if-let [factor (lpf number)]
+    (if-let [factor (smallest-divisor number)]
       ((factorize-2 (/ number factor)) (conj factors factor))
       (conj factors number))))
 

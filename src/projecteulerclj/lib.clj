@@ -27,9 +27,10 @@
 
 (defn ^:private prime-candidates-x
   ([] (cons 2 (cons 3 (prime-candidates-x 1))))
-  ([n] (cons (dec (* 6 n))
-             (cons (inc (* 6 n))
-                   (lazy-seq (prime-candidates-x (inc n)))))))
+  ([n]
+   (cons (dec (* 6 n))
+         (cons (inc (* 6 n))
+               (lazy-seq (prime-candidates-x (inc n)))))))
 
 (defn prime-candidates []
   (lazy-cat [2 3]
@@ -38,14 +39,15 @@
                          (seqfn (inc n))))
               1)))
 
+(defn smallest-divisor [n]
+  "smallest factor of n that is greater than 1. returns 1 for 1."
+  (or
+    (if (> n 2)
+      (some (fn [factor] (if (divisible-by? n factor) factor))
+            (take-below (prime-factor-limit n) (prime-candidates))))
+   (if (< 1 n) n)))
 
-(defn lpf [number]
-  "least prime factor"
-  (if (> number 2)
-    (some (fn [factor] (if (divisible-by? number factor) factor))
-          (take-below (prime-factor-limit number) (prime-candidates)))))
-
-(defn prime? [number] (not (lpf number)))
+(defn prime? [number] (= number (smallest-divisor number)))
 
 (defn primes
   ([] (filter prime? (prime-candidates)))
