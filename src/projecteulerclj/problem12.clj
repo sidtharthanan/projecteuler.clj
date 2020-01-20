@@ -8,7 +8,7 @@
 
 (def triangles (map #(*' % (inc %) 1/2) (iterate inc 1)))
 
-(defn divisors [n]
+(defn divisors1 [n]
   (loop [divisor 1N
          factors #{}]
     (if (<= divisor (Math/ceil (Math/sqrt n)))
@@ -16,6 +16,14 @@
         (apply conj factors
                (if (zero? (rem n divisor)) [divisor (quot n divisor)])))
       factors)))
+
+(defn divisors [n]
+  (reduce
+    (fn [factors divisor]
+      (apply conj factors
+             (if (zero? (rem n divisor)) [divisor (quot n divisor)])))
+    #{}
+    (range 1 (inc (Math/ceil (Math/sqrt n))))))
 
 (defn main [threshold]
   (some #(and (<= threshold (count (divisors %))) %) triangles))
