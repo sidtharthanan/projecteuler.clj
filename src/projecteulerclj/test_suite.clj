@@ -21,7 +21,7 @@
 (defn exec-one-v2 [scene main input expected]
   (log "SCENE :" scene)
   (let [actual (apply main input)]
-    (if (= expected actual)
+    (if ((if (number? actual) == =) expected actual)
       (log "STATUS : OK")
       (do (log "EXPECTED :" expected)
           (log "ACTUAL :" actual)
