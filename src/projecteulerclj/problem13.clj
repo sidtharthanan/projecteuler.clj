@@ -1,15 +1,17 @@
 (ns projecteulerclj.problem13
-  (:require [projecteulerclj.test-suite :refer :all]))
+  (:require [projecteulerclj.test-suite :refer :all]
+            [clojure.string :refer [split-lines]]))
 
-(defn main [ds]
+(defn main [digits]
   (subs
    (str
-    (with-open [rdr (clojure.java.io/reader "src/projecteulerclj/data/13.txt")]
-      (reduce #(+' %1 (BigInteger. %2)) 0 (line-seq rdr))))
-   0 ds))
+    (reduce +'
+            (map #(BigInteger. %)
+                 (split-lines (slurp "src/projecteulerclj/data/13.txt")))))
+   0 digits))
 
 (defn problem13 []
   (exec-v2 "problem13"
-           "First n digits of the sum of 100 50 digit numbers"
+           "First <NUMBER n> digits of the sum of 100 50 digit numbers"
            main
            {:scene "Sum" :in [10] :out "5537376230"}))
