@@ -75,3 +75,6 @@
   (loop [p 1N
          n n]
     (if (zero? n) p (recur (* p n) (dec n)))))
+
+(defn fibo-seq [n1 n2]
+  (cons n1 (lazy-seq (fibo-seq n2 (+' n1 n2)))))

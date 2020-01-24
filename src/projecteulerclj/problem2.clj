@@ -1,6 +1,6 @@
 (ns projecteulerclj.problem2
   (:require [projecteulerclj.test-suite :as tests]
-            [projecteulerclj.lib :refer [take-below]]))
+            [projecteulerclj.lib :refer [take-below fibo-seq]]))
 
 ;This is to find out the possible position of the given number in the sequence
 ;(defn approx-depth
@@ -10,12 +10,8 @@
 ;     (approx-depth (Math/ceil (/ number 1.61803398875)) (inc cnt))
 ;     (inc cnt))))
 
-(defn fibo
-  ([] (fibo 1 2))
-  ([a b] (cons a (lazy-seq (fibo b (+' a b))))))
-
 (defn main [upto]
-  (->> (fibo)
+  (->> (fibo-seq 1N 2N)
        (filter even?)
        (take-below upto)
        (reduce +')))
