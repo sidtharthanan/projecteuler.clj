@@ -1,5 +1,6 @@
 (ns projecteulerclj.problem15
-  (:require [projecteulerclj.test-suite :refer :all]))
+  (:require [projecteulerclj.test-suite :refer :all]
+            [projecteulerclj.lib :refer [factorial]]))
 
 ;so slow
 (defn per-comb [n r]
@@ -13,15 +14,10 @@
   ([size] (per-comb (inc size) size))
   ([rows cols] (per-comb (inc rows) cols)))
 
-(defn fact [n]
-  (loop [p 1N
-         n n]
-    (if (zero? n) p (recur (* p n) (dec n)))))
-
 (defn main
   ([size] (main size size))
   ([rows cols]
-   (/ (fact (+' rows cols)) (fact cols) (fact rows))))
+   (/ (factorial (+' rows cols)) (factorial cols) (factorial rows))))
 
 (defn problem15 []
   (exec-v2 "problem15"

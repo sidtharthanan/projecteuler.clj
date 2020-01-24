@@ -70,3 +70,8 @@
   (if (pred first)
     first
     (if rest (recur rest pred))))
+
+(defn factorial [n]
+  (loop [p 1N
+         n n]
+    (if (zero? n) p (recur (* p n) (dec n)))))
