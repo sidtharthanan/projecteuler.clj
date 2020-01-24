@@ -2,7 +2,7 @@
   (:require [projecteulerclj.test-suite :refer :all]))
 
 (def pdivisors-seq
-  "Seq of numbers with set of proper divisors"
+  "Seq of numbers with sum of proper divisors"
   (let [seqfn
         (fn seqfn [prev n]
           (cons prev
@@ -14,14 +14,14 @@
                         (apply conj divs
                                (if (zero? (rem n div))
                                  [div (quot n div)])))
-                      (lazy-seq (seqfn [n divs] (inc n))))))))]
-    (concat [[1 #{}] [2 #{1}]] (seqfn [3 #{1}] 4))))
+                      (lazy-seq (seqfn [n (reduce + divs)] (inc n))))))))]
+    (concat [[1] [2 1]] (seqfn [3 1] 4))))
 
 (defn main [limit]
   (let [amicable?
-        (fn [[n n-divs]]
-          (let [[m m-divs] (nth pdivisors-seq (dec (reduce + n-divs)))]
-            (and (not= m n) (= (reduce + m-divs) n))))]
+        (fn [[n n-sum]]
+          (let [[m m-sum] (nth pdivisors-seq (dec n-sum))]
+            (and (not= m n) (= m-sum n))))]
     (->> pdivisors-seq
          (take limit)
          (rest)
