@@ -78,3 +78,19 @@
 
 (defn fibo-seq [n1 n2]
   (cons n1 (lazy-seq (fibo-seq n2 (+' n1 n2)))))
+
+(def pdivisors-seq
+  "Seq of numbers with the set of proper divisors. ex: '([1] [2 #{1}] [3 #{1}] [4 #{1 2}] ..)"
+  (let [seqfn
+        (fn seqfn [prev n]
+          (cons prev
+                (let [max-div (Math/ceil (Math/sqrt n))]
+                  (loop [div    2
+                         divs   #{1}]
+                    (if (<= div max-div)
+                      (recur (inc div)
+                        (apply conj divs
+                               (if (zero? (rem n div))
+                                 [div (quot n div)])))
+                      (lazy-seq (seqfn [n divs] (inc n))))))))]
+    (concat [[1] [2 #{1}]] (seqfn [3 #{1}] 4))))
