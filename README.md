@@ -1,3 +1,6 @@
+![ProjectEuler Badge](https://projecteuler.net/profile/sidtharthanan.png)
+
+
 # projecteuler.clj
 
 ### Dependencies
