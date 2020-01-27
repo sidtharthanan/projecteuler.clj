@@ -76,6 +76,10 @@
          n n]
     (if (zero? n) p (recur (* p n) (dec n)))))
 
+(defn get-factorial-seq
+  ([] (get-factorial-seq 1 1))
+  ([f1 n1] (cons [f1 n1] (lazy-seq (get-factorial-seq (*' f1 (inc n1)) (inc n1))))))
+
 (defn fibo-seq [n1 n2]
   (cons n1 (lazy-seq (fibo-seq n2 (+' n1 n2)))))
 
