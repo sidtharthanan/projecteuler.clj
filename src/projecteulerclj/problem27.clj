@@ -1,10 +1,10 @@
 (ns projecteulerclj.problem27
   (:require [projecteulerclj.test-suite :refer :all]
-            [projecteulerclj.lib :refer [primes]]))
+            [projecteulerclj.lib :refer [prime?]]))
 
-(def prime-seq (primes))
+;(def prime-seq (primes))
 
-(defn prime? [n] (some #{n} (take-while #(<= % n) prime-seq)))
+;(defn prime? [n] (some #{n} (take-while #(<= % n) prime-seq)))
 
 (defn quad-formula [x a b] (+' (*' x x) (*' a x) b))
 

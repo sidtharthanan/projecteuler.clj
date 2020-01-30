@@ -39,12 +39,14 @@
                          (seqfn (inc n))))
               1)))
 
+(def prime-candidates-seq (prime-candidates))
+
 (defn smallest-divisor [n]
   "smallest factor of n that is greater than 1. returns 1 for 1."
   (or
     (if (> n 2)
       (some (fn [factor] (if (divisible-by? n factor) factor))
-            (take-below (prime-factor-limit n) (prime-candidates))))
+            (take-below (prime-factor-limit n) prime-candidates-seq)))
    (if (< 1 n) n)))
 
 (defn prime? [number] (= number (smallest-divisor number)))
