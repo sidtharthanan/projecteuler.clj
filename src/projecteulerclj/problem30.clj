@@ -11,9 +11,9 @@
 (defn main [power]
   (defn digit-pow-sum? [n]
     (== n
-        (reduce +
-                (map #(Math/pow % power)
-                     (map bigint (str/split (str (bigint n)) #""))))))
+        (loop [sum 0
+               n   n]
+          (if (< 0 n) (recur (+ sum (Math/pow (rem n 10) power)) (quot n 10)) sum))))
   (reduce + (filter digit-pow-sum? (range 2 (Math/pow 10 (get-limit power))))))
 
 (defn problem30 []
