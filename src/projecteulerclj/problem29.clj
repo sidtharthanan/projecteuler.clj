@@ -3,10 +3,10 @@
 
 (defn main [limit]
   (count
-   (reduce conj #{}
-           (for [x (range 2 (inc limit))
-                 y (range 2 (inc limit))]
-             (.pow (biginteger x) y)))))
+   (set
+     (for [x (range 2 (inc limit))
+           y (range 2 (inc limit))]
+       (.pow (biginteger x) y)))))
 
 (defn problem29 []
   (exec-v2 "problem29"
