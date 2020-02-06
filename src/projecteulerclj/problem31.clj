@@ -63,4 +63,5 @@
            "Coin sums. Combinations"
            main
            {:in [200] :out 73682}
-           {:in [500] :out 6295434}))
+           {:in [500] :out 6295434}
+           {:in [1000] :out 321335886}))
